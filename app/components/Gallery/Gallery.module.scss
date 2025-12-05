@@ -1,0 +1,204 @@
+.gallery {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 5vw, 4rem);
+  background-color: transparent;
+
+  // Ligne verticale du haut de la section jusqu'au titre
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: clamp(2rem, 5vw, 4rem);
+    width: 1px;
+    height: calc(50vh - 15vh);
+    background-color: #fff;
+    opacity: 0.3;
+  }
+
+  // Ligne verticale du bas de la section jusqu'au bouton
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: clamp(2rem, 5vw, 4rem);
+    width: 1px;
+    height: calc(50vh - 15vh);
+    background-color: #fff;
+    opacity: 0.3;
+  }
+
+  @media (max-width: 1024px) {
+    min-height: 50vh;
+  }
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  color: #fff;
+  text-align: left;
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  width: 100%;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(2rem, 4vw, 3rem);
+  width: 100%;
+}
+
+.text {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #ccc;
+  line-height: 1.8;
+  margin: 0;
+  max-width: 500px;
+  text-align: left;
+}
+
+.button {
+  display: inline-block;
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(2rem, 4vw, 3rem);
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: fit-content;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  &:focus {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+}
+
+// Wrapper pour le bouton (pour l'animation GSAP)
+.textWrapper > div {
+  display: inline-block;
+}
+
+.right {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding-right: 40px;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    min-height: 50vh;
+  }
+}
+
+.bands {
+  display: flex;
+  width: 60%;
+  height: 100%;
+  min-height: 100vh;
+  gap: 40px;
+
+  @media (max-width: 1024px) {
+    min-height: 50vh;
+  }
+}
+
+.band {
+  position: relative;
+  flex: 1;
+  width: 50%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    min-height: 50vh;
+  }
+}
+
+.bandImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    min-height: 50vh;
+  }
+}
+
+.bandImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}

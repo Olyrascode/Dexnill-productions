@@ -1,0 +1,160 @@
+.projectPage {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  padding-top: clamp(4rem, 8vh, 6rem); // Espace pour la navbar
+}
+
+// Section titre
+.titleSection {
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3rem, 6vh, 6rem) clamp(2rem, 5vw, 4rem);
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  margin: 0;
+  opacity: 0;
+}
+
+// Section image hero
+.heroSection {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+}
+
+.heroImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+// Section description
+.descriptionSection {
+  position: relative;
+  width: 100%;
+  padding: clamp(4rem, 8vh, 8rem) clamp(2rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.descriptionContent {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+}
+
+.category {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin: 0 0 clamp(1.5rem, 3vh, 2rem) 0;
+}
+
+.description {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 300;
+}
+
+// Section galerie
+.gallerySection {
+  position: relative;
+  width: 100%;
+  padding: clamp(4rem, 8vh, 8rem) clamp(2rem, 5vw, 4rem);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.galleryItem {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+}
+
+.galleryImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  }
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+
+  .galleryImageWrapper:hover & {
+    transform: scale(1.05);
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .heroSection {
+    height: 60vh;
+  }
+
+  .title {
+    font-size: clamp(2rem, 10vw, 4rem);
+  }
+}
+

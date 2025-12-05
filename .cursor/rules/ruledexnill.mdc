@@ -1,0 +1,89 @@
+---
+alwaysApply: true
+---
+
+# RÈGLES DE DÉVELOPPEMENT – PORTFOLIO DE PHOTOGRAPHIE
+
+Ce projet vise un niveau de qualité "Awwwards".
+Cursor doit TOUJOURS appliquer ces règles strictement, sauf indication explicite contraire.
+
+---
+
+## 1. Architecture & Next.js (App Router)
+
+- **Framework :** Next.js 14+ (App Router).
+- **Server vs Client Components :**
+  - Par défaut, tous les composants sont des **Server Components**.
+  - Ajouter `'use client'` en haut du fichier UNIQUEMENT si nécessaire (utilisation de hooks : `useState`, `useEffect`, `useGSAP`, ou event listeners).
+- **Structure des dossiers :**
+  - `app/` : Pages (`page.tsx`) et layouts (`layout.tsx`).
+  - `components/` : Composants UI réutilisables.
+  - `styles/` : Variables globales, mixins, reset.
+  - `types/` : Définitions TypeScript partagées.
+
+---
+
+## 2. TypeScript – Strict
+
+- **Fichiers :** `.ts` ou `.tsx` uniquement. INTERDICTION d'utiliser JavaScript (`.js`, `.jsx`).
+- **Typage :**
+  - `any` est STRICTEMENT INTERDIT → utiliser `unknown` ou définir un type précis.
+  - Toutes les Props, états et retours de fonctions complexes doivent être typés.
+  - Préférer `type` à `interface` pour les props de composants.
+  - Pas de types implicites si cela nuit à la lisibilité.
+
+---
+
+## 3. SCSS – Styles & Fluidité
+
+- **Architecture :**
+  - Utiliser **SCSS Modules** (`.module.scss`) pour tous les composants.
+  - Le fichier `globals.scss` est réservé au reset et aux variables CSS root.
+- **Nesting (Structure DOM) :**
+  - Le SCSS doit refléter la hiérarchie HTML.
+  - Utiliser `&` pour les pseudo-classes et modificateurs (ex: `&__title`, `&:hover`).
+  - Jamais de sélecteurs plats isolés s'ils dépendent d'un parent.
+- **Fluid Design (Responsive Moderne) :**
+  - **Typographie & Spacing :** Utiliser `clamp(MIN, VALEUR_FLUIDE, MAX)` au lieu de multiples breakpoints.
+    - _Exemple :_ `font-size: clamp(1rem, 2.5vw, 2rem);`
+  - **Unités :** `rem` pour les tailles fixes/accessibles, `vw/%` pour le fluide.
+- **Images & Ratios :**
+  - Utiliser la propriété `aspect-ratio` sur les conteneurs d'images pour verrouiller l'espace avant chargement (éviter le Layout Shift).
+  - _Exemples :_ `aspect-ratio: 3/2;`, `aspect-ratio: 16/9;`.
+
+---
+
+## 4. Performance Images
+
+- **Composant :** Utiliser EXCLUSIVEMENT `<Image />` de `next/image`.
+- **Interdiction :** La balise `<img>` standard est interdite.
+- **Bonnes pratiques :**
+  - **Alt Text :** Obligatoire et descriptif.
+  - **LCP (Largest Contentful Paint) :** Ajouter la prop `priority` sur l'image principale visible au chargement (Hero).
+  - **Responsive :** Utiliser la prop `sizes` pour les grilles d'images.
+  - **Fill :** Pour les images "full container", utiliser `fill` + `object-fit: cover` dans le SCSS du parent.
+
+---
+
+## 5. Animations (GSAP)
+
+- **Choix de la technologie :**
+  - **CSS Transitions :** Pour les micro-interactions simples (hover opacity, link colors, boutons simples).
+  - **GSAP :** Pour TOUT le reste (ScrollTrigger, Entrées de page, Parallax, Séquences complexes).
+- **Intégration React :**
+  - Utiliser le hook **`useGSAP`** (de `@gsap/react`) au lieu de `useEffect`.
+  - Cela gère automatiquement le nettoyage (cleanup) et la compatibilité avec le Strict Mode de React.
+- **Performance :**
+  - Animer uniquement `transform` et `opacity`. Éviter d'animer `width`, `height`, `top`, `left` (causes de reflow).
+
+---
+
+## 6. Qualité du Code & Accessibilité
+
+- **Sémantique :** Utiliser des balises HTML sémantiques (`<main>`, `<header>`, `<nav>`, `<article>`, `<section>`).
+- **Accessibilité (a11y) :**
+  - Ne jamais supprimer l'`outline` au focus sans le remplacer par un style visuel clair.
+  - Structure des headings (`h1` -> `h6`) logique.
+- **Code Clean :**
+  - Supprimer les `console.log` avant de finaliser.
+  - Nommage des classes et variables en anglais, clair et explicite.

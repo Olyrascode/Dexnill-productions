@@ -1,0 +1,120 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Conteneur vidéo - toujours visible, ne bouge pas
+.videoContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+// Masque noir avec texte DEXNILL transparent qui révèle la section hero
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: #000;
+  pointer-events: none;
+
+  // Utiliser directement le masque sur l'élément .mask
+  // C'est le fond noir qui sera masqué/découpé par le texte
+  mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxtYXNrIGlkPSJtYXNrIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXNpemU9IjEycmVtIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSJibGFjayIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBsZXR0ZXItc3BhY2luZz0iMC4wNWVtIj5ERVhOSUxMPC90ZXh0PjwvbWFzaz48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjbWFzaykiLz48L3N2Zz4=");
+  -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxtYXNrIGlkPSJtYXNrIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXNpemU9IjEycmVtIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSJibGFjayIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBsZXR0ZXItc3BhY2luZz0iMC4wNWVtIj5ERVhOSUxMPC90ZXh0PjwvbWFzaz48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0id2hpdGUiIG1hc2s9InVybCgjbWFzaykiLz48L3N2Zz4=");
+
+  // Centrer et ajuster la taille du masque SVG
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+  mask-mode: alpha;
+  -webkit-mask-mode: alpha;
+
+  // Ajouter la transition pour la propriété scale pour une meilleure performance
+  transform: scale(1);
+  transition: transform 0s; // GSAP gère l'animation, mais c'est une bonne pratique
+}
+
+// Retirer toutes les règles pour .maskText
+.maskText {
+  display: none;
+}
+
+.titleContainer {
+  position: absolute;
+  bottom: clamp(2rem, 5vh, 4rem);
+  left: clamp(2rem, 5vw, 4rem);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.subtitle {
+  font-size: clamp(0.75rem, 1.5vw, 1.25rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  text-align: left;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.siteTitle {
+  transform: scaleY(2);
+  font-size: clamp(1.5rem, 5vw, 8rem);
+  font-weight: 600;
+  color: #fff;
+  opacity: 0;
+  text-align: left;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .mask {
+    // Masque SVG avec texte plus petit pour mobile
+    mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxtYXNrIGlkPSJtYXNrIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXNpemU9IjhyZW0iIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9ImJsYWNrIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGxldHRlci1zcGFjaW5nPSIwLjA1ZW0iPkRFWE5JTEw8L3RleHQ+PC9tYXNrPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIgbWFzaz0idXJsKCNtYXNrKSIvPjwvc3ZnPg==");
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxtYXNrIGlkPSJtYXNrIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmb250LXNpemU9IjhyZW0iIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9ImJsYWNrIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGxldHRlci1zcGFjaW5nPSIwLjA1ZW0iPkRFWE5JTEw8L3RleHQ+PC9tYXNrPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ3aGl0ZSIgbWFzaz0idXJsKCNtYXNrKSIvPjwvc3ZnPg==");
+  }
+
+  .subtitle {
+    font-size: clamp(0.6rem, 2vw, 1rem);
+  }
+
+  .siteTitle {
+    font-size: clamp(1rem, 5vw, 2rem);
+  }
+}

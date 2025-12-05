@@ -1,0 +1,44 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #000;
+  color: #fff;
+  padding: clamp(2rem, 5vw, 4rem);
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(4rem, 15vw, 10rem);
+  font-weight: 900;
+  margin: 0 0 clamp(1rem, 2vh, 2rem) 0;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+.message {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  margin: 0 0 clamp(2rem, 4vh, 3rem) 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.link {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #fff;
+  text-decoration: none;
+  padding: clamp(0.75rem, 2vh, 1rem) clamp(1.5rem, 4vw, 2rem);
+  border: 2px solid #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
