@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './PageTransition.module.scss'
@@ -20,10 +20,37 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const contentRef = useRef<HTMLDivElement>(null)
   const isTransitioning = useRef(false)
   const revealTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [viewportHeight, setViewportHeight] = useState<string>('100vh')
 
   // Synchroniser isTransitioning avec globalIsTransitioning au montage
   useEffect(() => {
     isTransitioning.current = globalIsTransitioning
+    
+    // Calculer la hauteur de la fenêtre réelle (pour mobile avec barre d'adresse)
+    const updateViewportHeight = () => {
+      const vh = window.innerHeight
+      setViewportHeight(`${vh}px`)
+      
+      // Appliquer aussi aux colonnes si elles existent
+      if (columnsRef.current) {
+        const columns = columnsRef.current.querySelectorAll(`.${styles.column}`)
+        columns.forEach((col) => {
+          ;(col as HTMLElement).style.height = `${vh}px`
+          ;(col as HTMLElement).style.minHeight = `${vh}px`
+        })
+        ;(columnsRef.current as HTMLElement).style.height = `${vh}px`
+        ;(columnsRef.current as HTMLElement).style.minHeight = `${vh}px`
+      }
+    }
+    
+    updateViewportHeight()
+    window.addEventListener('resize', updateViewportHeight)
+    window.addEventListener('orientationchange', updateViewportHeight)
+    
+    return () => {
+      window.removeEventListener('resize', updateViewportHeight)
+      window.removeEventListener('orientationchange', updateViewportHeight)
+    }
   }, [])
 
   // Animation de couverture : colonnes montent du bas vers le haut
@@ -59,9 +86,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
       columnsRef.current.style.display = 'grid'
     }
 
-    // S'assurer que les colonnes sont visibles et positionnées en bas
+    // Calculer la hauteur de l'écran pour positionner les colonnes
+    const screenHeight = window.innerHeight
+
+    // S'assurer que les colonnes sont visibles et positionnées en bas (hors de l'écran)
     gsap.set(columns, { 
-      yPercent: 100,
+      y: screenHeight, // Positionner en bas de l'écran (hors de la vue)
       opacity: 1,
       visibility: 'visible',
       display: 'block',
@@ -78,9 +108,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
       },
     })
 
-    // Animation d'entrée : du bas (100%) vers le haut (0%)
+    // Animation d'entrée : du bas (screenHeight) vers le haut (0)
     tl.to(columns, {
-      yPercent: 0,
+      y: 0,
       duration: 0.8,
       ease: 'power3.inOut',
       stagger: 0.08,
@@ -99,10 +129,13 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
     if (columns.length === 0) return
 
+    // Calculer la hauteur de l'écran pour positionner les colonnes
+    const screenHeight = window.innerHeight
+
     // Si les colonnes sont en transition, les positionner en 0 avant de descendre
     if (globalColumnsState && globalColumnsState.yPercent === 0) {
       gsap.set(columns, {
-        yPercent: 0,
+        y: 0,
         opacity: 1,
         visibility: 'visible',
         backgroundColor: '#fff',
@@ -124,9 +157,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
       columnsRef.current.style.display = 'grid'
     }
 
-    // Animation de sortie : de la position normale (0%) vers le bas (100%)
+    // Animation de sortie : de la position normale (0) vers le bas (screenHeight)
     gsap.to(columns, {
-      yPercent: 100,
+      y: screenHeight,
       duration: 0.8,
       ease: 'power3.inOut',
       stagger: 0.08,
@@ -148,10 +181,11 @@ export default function PageTransition({ children }: PageTransitionProps) {
     revealTimeoutRef.current = setTimeout(() => {
       if (columns.length > 0) {
         const firstColumn = columns[0] as HTMLElement
-        const currentY = gsap.getProperty(firstColumn, 'yPercent')
-        if (firstColumn && currentY !== null && currentY !== 100) {
+        const currentY = gsap.getProperty(firstColumn, 'y')
+        const screenHeight = window.innerHeight
+        if (firstColumn && currentY !== null && currentY !== screenHeight) {
           gsap.to(columns, {
-            yPercent: 100,
+            y: screenHeight,
             duration: 0.2,
             ease: 'power2.out',
             onComplete: () => {
@@ -208,9 +242,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
     const columns = columnsRef.current.querySelectorAll(`.${styles.column}`)
 
-    // Initialiser les colonnes en bas
+    // Calculer la hauteur de l'écran pour positionner les colonnes
+    const screenHeight = window.innerHeight
+
+    // Initialiser les colonnes en bas (hors de l'écran)
     gsap.set(columns, { 
-      yPercent: 100,
+      y: screenHeight,
       opacity: 1,
       visibility: 'visible',
       display: 'block'
@@ -269,9 +306,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
       const columns = columnsRef.current.querySelectorAll(`.${styles.column}`)
       if (columns.length === 0) return
 
-      // Restaurer l'état des colonnes
+      // Restaurer l'état des colonnes (en position 0, couvrant l'écran)
       gsap.set(columns, {
-        yPercent: 0,
+        y: 0,
         opacity: 1,
         visibility: 'visible',
         display: 'block',
@@ -305,13 +342,23 @@ export default function PageTransition({ children }: PageTransitionProps) {
       <div 
         ref={columnsRef} 
         className={styles.columnsContainer}
-        style={{ visibility: 'visible', opacity: 1 }}
+        style={{ 
+          visibility: 'visible', 
+          opacity: 1,
+          height: viewportHeight,
+          minHeight: viewportHeight
+        }}
       >
         {Array.from({ length: 9 }).map((_, index) => (
           <div 
             key={index} 
             className={styles.column}
-            style={{ visibility: 'visible', opacity: 1 }}
+            style={{ 
+              visibility: 'visible', 
+              opacity: 1,
+              height: viewportHeight,
+              minHeight: viewportHeight
+            }}
           />
         ))}
       </div>
