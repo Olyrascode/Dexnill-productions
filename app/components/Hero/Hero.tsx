@@ -46,59 +46,62 @@ export default function Hero({ navbarRef }: HeroProps) {
         duration: 4, // Durée plus longue pour que le zoom prenne plus de distance de scroll
         ease: 'power2.inOut',
       })
-      // Faire disparaître le masque progressivement, en commençant quand le texte est déjà visible
+      // Faire disparaître le masque progressivement, en commençant quand le zoom est bien avancé
       .to(
         maskRef.current,
         {
           opacity: 0,
-          duration: 1.5, // Durée pour la disparition progressive
+          duration: 2, // Durée plus longue pour une disparition plus progressive
           ease: 'power2.in',
         },
-        '-=1' // Commence à disparaître quand le zoom est déjà bien avancé
+        '-=1.5' // Commence à disparaître plus tôt pendant le zoom
       )
-      // Animations fade-in-up avec effet de glissement : titre légèrement avant le sous-titre
-      // Après la fin complète de l'animation du masque pour éviter le filtre noir
+      // Animations fade-in-up avec effet de glissement : commencer pendant la disparition du masque
+      // Le titre commence en premier, de manière très progressive
       .fromTo(
         titleRef.current,
         {
           opacity: 0,
-          y: 60, // Distance plus importante pour un effet de glissement prononcé
+          y: 40, // Distance réduite pour un effet plus doux
         },
         {
           opacity: 1,
           y: 0,
-          duration: 2, // Durée plus longue pour plus de fluidité avec le scrub
+          duration: 2.5, // Durée plus longue pour une apparition plus progressive
           ease: 'power2.out', // Easing pour un glissement fluide
-        }
+        },
+        '-=2' // Commence pendant que le masque disparaît encore
       )
+      // Le sous-titre apparaît légèrement après le titre
       .fromTo(
         subtitleRef.current,
         {
           opacity: 0,
-          y: 60, // Distance plus importante pour un effet de glissement prononcé
+          y: 30, // Distance réduite pour un effet plus doux
         },
         {
           opacity: 1,
           y: 0,
-          duration: 2, // Durée plus longue pour plus de fluidité avec le scrub
+          duration: 2.5, // Durée plus longue pour une apparition plus progressive
           ease: 'power2.out', // Easing pour un glissement fluide
         },
-        '-=1.95' // Décalage très léger pour un effet fluide sans saut
+        '-=2.2' // Commence légèrement après le titre
       )
-      // Animation de la navbar : slide du haut vers le bas au même moment que le sous-titre
+      // Animation de la navbar : slide du haut vers le bas de manière progressive
+      // Mêmes réglages que le titre pour une cohérence visuelle
       .fromTo(
         navbarRef.current,
         {
-          y: -100,
+          y: -40, // Même distance que le titre pour un effet cohérent
           opacity: 0,
         },
         {
           y: 0,
           opacity: 1,
-          duration: 2, // Durée plus longue pour plus de fluidité avec le scrub
+          duration: 2.5, // Même durée que le titre
           ease: 'power2.out',
         },
-        '-=1.95' // Au même moment que le sous-titre
+        '-=2' // Commence au même moment que le titre
       )
   }, { scope: heroRef, dependencies: [navbarRef] })
 
