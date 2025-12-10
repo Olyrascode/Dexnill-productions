@@ -38,6 +38,9 @@
   grid-template-columns: 1fr 1fr;
   min-height: 100vh;
   width: 100%;
+  // Centrer initialement pour l'animation de croissance
+  margin: 0 auto;
+  transform-origin: center center;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;

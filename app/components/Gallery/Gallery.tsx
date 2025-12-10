@@ -26,105 +26,122 @@ type GalleryProps = {
 
 export default function Gallery({ portraitImage, title = 'Portfolio', text = 'Découvrez une sélection de mes meilleures photographies, capturant des moments uniques et des émotions authentiques.' }: GalleryProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const backgroundImageRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const textRef = useRef<HTMLParagraphElement>(null)
   const bandsRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
-    if (!sectionRef.current || !titleRef.current || !textRef.current || !bandsRef.current || !buttonRef.current) return
+    if (!sectionRef.current || !containerRef.current || !backgroundImageRef.current || !titleRef.current || !textRef.current || !bandsRef.current || !buttonRef.current) return
 
-    // Animation d'apparition du titre
-    gsap.fromTo(
+    // Animation principale : commence dès que le texte ReadingText est complètement affiché
+    // L'animation se termine quand la Gallery atteint 20% du haut de l'écran (top 20%)
+    const mainTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top bottom', // Commence quand le haut de Gallery atteint le bas de l'écran (texte ReadingText complètement affiché)
+        end: 'top 20%', // Se termine quand le haut de Gallery atteint 20% du haut de l'écran (Gallery en pleine taille)
+        scrub: 1.5, // Animation liée au scroll
+        pin: false, // Pas de pin pour permettre à la Gallery d'être visible pendant ReadingText
+      },
+    })
+
+    // Initialiser la Gallery et l'image de background très petites, invisibles, et à 100px sous le texte ReadingText
+    // ReadingText fait 100vh et Gallery fait aussi 100vh
+    // Le texte est centré dans ReadingText, donc à environ 50vh du haut
+    // Pour positionner Gallery à 100px sous le texte, on doit remonter de 50vh (centre de Gallery) moins 100px
+    gsap.set([containerRef.current, backgroundImageRef.current], {
+      scale: 0.15, // Très petit (15% de la taille normale)
+      x: 0,
+      y: -window.innerHeight * 0.5 + 100, // Positionnée à 100px sous le texte ReadingText (50vh - 100px)
+      opacity: 0, // Invisible au début
+      transformOrigin: 'center center',
+    })
+
+    // Étape 1 : Opacité 0 à 1 (affichage de la section Gallery en tout petit)
+    mainTimeline.to([containerRef.current, backgroundImageRef.current], {
+      opacity: 1,
+      duration: 0.5,
+      ease: 'power2.out',
+    })
+
+    // Étape 2 : Descente depuis sous le texte jusqu'à la position finale
+    mainTimeline.to([containerRef.current, backgroundImageRef.current], {
+      y: 0, // Descend à sa position finale
+      duration: 1,
+      ease: 'power2.inOut',
+    })
+
+    // Étape 3 : Scale de la section (de très petit à taille normale)
+    mainTimeline.to([containerRef.current, backgroundImageRef.current], {
+      scale: 1,
+      duration: 1.5,
+      ease: 'power2.out',
+    })
+
+    // Animation d'apparition du titre (pendant la croissance)
+    mainTimeline.fromTo(
       titleRef.current,
       {
-        opacity: 0,
         x: -60,
       },
       {
-        opacity: 1,
         x: 0,
         duration: 1,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse',
-        },
-      }
+      },
+      '-=1.5' // Commence pendant la croissance
     )
 
     // Animation d'apparition du texte
-    gsap.fromTo(
+    mainTimeline.fromTo(
       textRef.current,
       {
-        opacity: 0,
         y: 40,
       },
       {
-        opacity: 1,
         y: 0,
         duration: 1,
         ease: 'power2.out',
-        delay: 0.2,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse',
-        },
-      }
+      },
+      '-=1.3' // Légèrement après le titre
     )
 
     // Animation d'apparition des bandes
-    gsap.fromTo(
+    mainTimeline.fromTo(
       bandsRef.current,
       {
-        opacity: 0,
         x: 60,
       },
       {
-        opacity: 1,
         x: 0,
         duration: 1.2,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse',
-        },
-      }
+      },
+      '-=1.1' // Légèrement après le texte
     )
 
     // Animation d'apparition du bouton
-    gsap.fromTo(
+    mainTimeline.fromTo(
       buttonRef.current,
       {
-        opacity: 0,
         y: 20,
       },
       {
-        opacity: 1,
         y: 0,
         duration: 1,
         ease: 'power2.out',
-        delay: 0.4,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none reverse',
-        },
-      }
+      },
+      '-=0.9' // Dernier élément à apparaître
     )
   }, { scope: sectionRef })
 
   return (
     <section ref={sectionRef} className={styles.gallery}>
       {/* Image de fond */}
-      <div className={styles.backgroundImage}>
+      <div ref={backgroundImageRef} className={styles.backgroundImage}>
         <Image
           src="/images/fond_rouge.webp"
           alt="Background"
@@ -135,7 +152,7 @@ export default function Gallery({ portraitImage, title = 'Portfolio', text = 'D�
       </div>
 
       <div className={styles.container}>
-        <div className={styles.content}>
+        <div ref={containerRef} className={styles.content}>
           <div className={styles.left}>
             <h2 ref={titleRef} className={styles.title}>
               {title}
