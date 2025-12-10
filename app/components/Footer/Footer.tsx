@@ -1,9 +1,10 @@
+import { forwardRef } from 'react'
 import Link from 'next/link'
 import styles from './Footer.module.scss'
 
-export default function Footer() {
+const Footer = forwardRef<HTMLElement>((props, ref) => {
   return (
-    <footer className={styles.footer}>
+    <footer ref={ref} className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.content}>
           {/* Colonne gauche - Logo et description */}
@@ -23,6 +24,9 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/gallery">Galerie</Link>
+              </li>
+              <li>
+                <Link href="/videos">Vidéos</Link>
               </li>
               <li>
                 <Link href="#about">À propos</Link>
@@ -70,5 +74,8 @@ export default function Footer() {
       </div>
     </footer>
   )
-}
+})
 
+Footer.displayName = 'Footer'
+
+export default Footer

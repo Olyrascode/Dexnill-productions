@@ -94,12 +94,13 @@
 }
 
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: clamp(2rem, 4vw, 4rem);
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  gap: 20vh;
 }
 
 .galleryItem {
@@ -111,6 +112,8 @@
 .galleryImageWrapper {
   position: relative;
   width: 100%;
+
+  max-height: 90vh;
   aspect-ratio: 2/3;
   overflow: hidden;
   border-radius: 4px;
@@ -138,14 +141,12 @@
 // Responsive
 @media (max-width: 1024px) {
   .gallery {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: clamp(1.5rem, 3vw, 2rem);
   }
 }
 
 @media (max-width: 768px) {
   .gallery {
-    grid-template-columns: 1fr;
     gap: clamp(1.5rem, 3vw, 2rem);
   }
 
@@ -157,4 +158,3 @@
     font-size: clamp(2rem, 10vw, 4rem);
   }
 }
-

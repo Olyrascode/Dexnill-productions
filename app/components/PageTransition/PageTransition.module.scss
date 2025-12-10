@@ -1,18 +1,52 @@
-.overlay {
+.pageTransition {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.columnsContainer {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000;
-  z-index: 9999;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0;
   pointer-events: none;
-  display: none;
+  z-index: 99999 !important;
+  overflow: hidden;
+  visibility: visible;
+  background-color: transparent;
+}
+
+.column {
+  width: 100%;
+  height: 100%;
+  background-color: #fff !important;
   will-change: transform;
+  opacity: 1;
+  visibility: visible;
+  position: relative;
 }
 
 .content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   opacity: 1;
   will-change: opacity;
 }
 
+// Responsive - ajuster le nombre de colonnes sur mobile
+@media (max-width: 768px) {
+  .columnsContainer {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .columnsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

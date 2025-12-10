@@ -90,6 +90,11 @@ const Navbar = forwardRef<HTMLElement>((props, ref) => {
               </Link>
             </li>
             <li>
+              <Link href="/videos" onClick={closeMenu}>
+                Vidéos
+              </Link>
+            </li>
+            <li>
               <a href="#about" onClick={closeMenu}>
                 À propos
               </a>

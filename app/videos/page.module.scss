@@ -1,0 +1,70 @@
+.videosPage {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+// Texte DEXNILL en background fixe
+.backgroundText {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(8rem, 25vw, 30rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.titleWrapper {
+  position: absolute;
+  top: clamp(5rem, 12vh, 8rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pageTitle {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.videosSection {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  margin-bottom: clamp(4rem, 8vh, 8rem);
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .backgroundText {
+    font-size: clamp(4rem, 20vw, 15rem);
+  }
+
+  .titleWrapper {
+    top: clamp(4rem, 10vh, 6rem);
+  }
+
+  .pageTitle {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+}

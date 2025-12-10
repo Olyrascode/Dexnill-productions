@@ -126,7 +126,7 @@ export default function Gallery({ portraitImage, title = 'Portfolio', text = 'DÃ
       {/* Image de fond */}
       <div className={styles.backgroundImage}>
         <Image
-          src="/Fond_rouge_dexnill.png"
+          src="/images/fond_rouge.webp"
           alt="Background"
           fill
           className={styles.bgImage}
