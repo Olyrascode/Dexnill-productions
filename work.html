@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Dexnill Productions</title>
+  <link rel="icon" href="/site-icon.png" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="author" content="Fyconic" />
+
+  <link rel="stylesheet" href="/globals.css" />
+  <link rel="stylesheet" href="/css/transition.css" />
+  <link rel="stylesheet" href="/css/menu.css" />
+  <link rel="stylesheet" href="/css/portfolio.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+</head>
+
+<body>
+  <!-- page transition -->
+  <div class="transition">
+    <div class="transition-overlay"></div>
+  </div>
+
+  <!-- menu -->
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <div class="logo-container">
+          <a href="/"><span></span>Dexnill Productions</a>
+        </div>
+      </div>
+
+      <div class="menu-toggle-btn">
+        <div class="menu-toggle-btn-wrapper">
+          <p>Menu</p>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-overlay">
+    <div class="nav-items">
+      <div class="nav-item">
+        <a href="/">Accueil</a>
+      </div>
+      <div class="nav-item active">
+        <a href="/work">Portfolio</a>
+      </div>
+      <div class="nav-item">
+        <a href="/culture">Culture</a>
+      </div>
+      <div class="nav-item">
+        <a href="/directors">À propos</a>
+      </div>
+      <div class="nav-item">
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="nav-footer">
+      <div class="container">
+        <div class="nav-footer-item">
+          <a href="" target="_blank">Instagram</a>
+          <a href="" target="_blank">YouTube</a>
+        </div>
+
+        <div class="nav-footer-item">
+          <a href="/contact">[ &nbsp;Nous contacter &nbsp; ]</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- portfolio: hero section -->
+  <section class="portfolio-hero">
+    <div class="portfolio-hero-header">
+      <div class="container">
+        <h1>Nos projets</h1>
+      </div>
+    </div>
+
+    <div class="portfolio-hero-footer">
+      <div class="container">
+        <p>Œuvres sélectionnées</p>
+        <p>[ &nbsp;Cliquez pour découvrir&nbsp; ]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- portfolio: projects grid section -->
+  <section class="projects-grid">
+    <div class="projects-grid-header">
+      <h2>DEXNILL</h2>
+    </div>
+  </section>
+
+  <!-- portfolio: project detail overlay -->
+  <div class="project-overlay">
+    <div class="project-overlay-bg"></div>
+    <div class="project-overlay-content">
+      <div class="project-overlay-close">
+        <span>[ &nbsp;Fermer&nbsp; ]</span>
+      </div>
+      <div class="project-overlay-image">
+        <img src="" alt="" />
+      </div>
+      <div class="project-overlay-info">
+        <h2 class="project-overlay-title"></h2>
+        <p class="project-overlay-description"></p>
+        <div class="project-overlay-meta">
+          <p class="project-overlay-type"></p>
+          <p class="project-overlay-field"></p>
+          <p class="project-overlay-date"></p>
+        </div>
+        <a href="/film" class="project-overlay-link">[ &nbsp;Voir le projet complet&nbsp; ]</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer>
+    <div class="footer-row form">
+      <div class="container">
+        <div class="footer-name">
+          <h3>Dexnill</h3>
+          <h3>Productions</h3>
+        </div>
+
+        <div class="footer-form-copy">
+          <p>Un registre vivant de projets, de personnes et de processus.</p>
+        </div>
+
+        <div class="footer-input">
+          <input type="text" placeholder="Entrez votre email" />
+        </div>
+
+        <div class="footer-submit-btn">
+          <a href="/contact" class="scramble-hover">[ &nbsp;Commencer l'échange&nbsp; ]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-row meta">
+      <div class="container">
+        <div class="footer-meta-row">
+          <div class="meta-info">
+            <p>Nous contacter</p>
+            <p>dexnillproductions@gmail.com</p>
+          </div>
+
+          <div class="meta-info">
+            <a href="#" class="scramble-hover">YouTube</a>
+            <a href="#" class="scramble-hover">Instagram</a>
+            <a href="#" class="scramble-hover">Twitter</a>
+            <a href="#" class="scramble-hover">Vimeo</a>
+          </div>
+
+          <div class="meta-info">
+            <a href="/culture" class="scramble-hover">Culture</a>
+            <a href="/directors" class="scramble-hover">À propos</a>
+          </div>
+
+          <div class="meta-info">
+            <a href="/work" class="scramble-hover">Projets</a>
+          </div>
+        </div>
+
+        <div class="footer-meta-row">
+          <p>Développé par Fyconic</p>
+          <p>Tous droits réservés</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/scripts/lenis-scroll.js"></script>
+  <script type="module" src="/scripts/transition.js"></script>
+  <script type="module" src="/scripts/menu.js"></script>
+  <script type="module" src="/scripts/portfolio.js"></script>
+</body>
+
+</html>

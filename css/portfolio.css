@@ -1,0 +1,243 @@
+/* portfolio: hero section */
+.portfolio-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tone-100);
+}
+
+.portfolio-hero .portfolio-hero-header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.portfolio-hero .portfolio-hero-header h1 {
+  width: 100%;
+  font-size: 15vw;
+  letter-spacing: -0.25vw;
+  color: var(--tone-500);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.portfolio-hero .portfolio-hero-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.portfolio-hero .portfolio-hero-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: var(--tone-400);
+}
+
+/* portfolio: projects grid section */
+.projects-grid {
+  position: relative;
+  width: 100%;
+  background-color: var(--tone-100);
+  overflow: hidden;
+}
+
+.projects-grid .projects-grid-row {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+}
+
+.projects-grid .pin-spacer {
+  z-index: 1 !important;
+  pointer-events: none;
+}
+
+.projects-grid .pin-spacer .projects-grid-row {
+  pointer-events: auto;
+}
+
+.projects-grid .projects-grid-col {
+  flex: 1;
+  aspect-ratio: 1;
+}
+
+.projects-grid .project-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.projects-grid .project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0) brightness(0.85) contrast(1.0125);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.projects-grid .project-img:hover img {
+  filter: saturate(1) brightness(1) contrast(1);
+  transform: scale(1.05);
+}
+
+.projects-grid .project-img[data-origin="left"] {
+  transform-origin: 0% 0%;
+}
+
+.projects-grid .project-img[data-origin="right"] {
+  transform-origin: 100% 0%;
+}
+
+.projects-grid .projects-grid-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.projects-grid .projects-grid-header h2 {
+  font-size: 20vw;
+  letter-spacing: -0.5vw;
+  color: var(--tone-500);
+}
+
+/* portfolio: project overlay */
+.project-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.project-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.project-overlay .project-overlay-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.project-overlay .project-overlay-content {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  display: flex;
+  gap: 2rem;
+  overflow: auto;
+}
+
+.project-overlay .project-overlay-close {
+  position: absolute;
+  top: -2rem;
+  right: 0;
+  color: var(--tone-400);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.project-overlay .project-overlay-close:hover {
+  color: var(--tone-500);
+}
+
+.project-overlay .project-overlay-image {
+  flex: 1;
+  max-width: 60%;
+}
+
+.project-overlay .project-overlay-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.project-overlay .project-overlay-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  color: var(--tone-500);
+}
+
+.project-overlay .project-overlay-title {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.project-overlay .project-overlay-description {
+  color: var(--tone-400);
+  line-height: 1.6;
+}
+
+.project-overlay .project-overlay-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--tone-400);
+}
+
+.project-overlay .project-overlay-link {
+  display: inline-block;
+  color: var(--tone-400);
+  margin-top: auto;
+  transition: color 0.3s ease;
+}
+
+.project-overlay .project-overlay-link:hover {
+  color: var(--tone-500);
+}
+
+@media (max-width: 1000px) {
+  .portfolio-hero .portfolio-hero-header h1 {
+    font-size: 20vw;
+  }
+
+  .project-overlay .project-overlay-content {
+    flex-direction: column;
+    padding: 3rem 0;
+  }
+
+  .project-overlay .project-overlay-image {
+    max-width: 100%;
+  }
+
+  .project-overlay .project-overlay-title {
+    font-size: 2rem;
+  }
+}

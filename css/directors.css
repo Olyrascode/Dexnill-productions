@@ -1,0 +1,117 @@
+/* directors: hero section */
+.pixelated-text.directors-hero {
+  position: relative;
+  height: 100svh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 0 0 2rem 0;
+  background-color: var(--tone-200);
+  text-align: left;
+  overflow: hidden;
+}
+
+.pixelated-text.directors-hero h1 {
+  font-size: 20vw;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* directors: list section */
+.directors-list {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  margin: 0;
+  background-color: var(--tone-400);
+  overflow: hidden;
+}
+
+.director-item {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.director-item .director-content {
+  position: relative;
+  z-index: 2;
+  width: 50%;
+  padding: 4rem;
+  text-align: left;
+}
+
+.director-item .director-name {
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.director-item .director-name h2 {
+  color: var(--tone-100);
+}
+
+.director-item .director-bio {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  max-width: 500px;
+}
+
+.director-item .director-bio p {
+  color: var(--tone-100);
+  line-height: 1.8;
+  opacity: 0.8;
+}
+
+/* preview image - right side */
+.director-preview {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 50%;
+  height: 100%;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.director-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1000px) {
+  .directors-list {
+    min-height: auto;
+  }
+
+  .director-item {
+    min-height: auto;
+    flex-direction: column;
+    padding: 4rem 0;
+  }
+
+  .director-item .director-content {
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .director-item .director-bio {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .director-preview {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    clip-path: none;
+    margin-top: 2rem;
+  }
+}
