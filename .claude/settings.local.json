@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git init:*)",
       "Bash(git remote add:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nNouvelle version complète du site Dexnill Productions\n\n- Refonte complète du design et des animations\n- Nouvelles pages: Portfolio, Culture, À propos, Contact, Film\n- Effet pixelated text avec Three.js\n- Galerie spotlight interactive\n- Preloader animé\n- Menu responsive avec animations\n- Footer avec formulaire de contact\n- Optimisations SEO \\(h1 unique, text-shadow sur titres\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
